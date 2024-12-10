@@ -23,7 +23,7 @@ class ChooseMode extends StatelessWidget {
             ),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: AssetImage(
                   AppImages.introBG,
                 ),
@@ -44,6 +44,7 @@ class ChooseMode extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(
@@ -53,12 +54,12 @@ class ChooseMode extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      themeMode(context,'Dark'),
+                      themeMode(context, 'Dark'),
                       const SizedBox(
                         width: 100,
                       ),
-                      themeMode(context,'Light'),
-                      ],
+                      themeMode(context, 'Light'),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -69,7 +70,8 @@ class ChooseMode extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) =>const SignupOrSignin(),
+                        builder: (BuildContext context) =>
+                            const SignupOrSignin(),
                       ),
                     );
                   },
@@ -83,7 +85,7 @@ class ChooseMode extends StatelessWidget {
     );
   }
 
-  Column themeMode(BuildContext context,String mode) {
+  Column themeMode(BuildContext context, String mode) {
     return Column(
       children: [
         ClipOval(
@@ -91,7 +93,8 @@ class ChooseMode extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: GestureDetector(
               onTap: () {
-                context.read<ThemeCubit>().updateTheme(mode == 'Dark' ? ThemeMode.dark : ThemeMode.light);
+                context.read<ThemeCubit>().updateTheme(
+                    mode == 'Dark' ? ThemeMode.dark : ThemeMode.light);
               },
               child: Container(
                 width: 80,
@@ -102,8 +105,7 @@ class ChooseMode extends StatelessWidget {
                 ),
                 child: Center(
                   child: SvgPicture.asset(
-                    mode=='dark'?
-                    AppVectors.moon:AppVectors.sun,
+                    mode == 'Dark' ? AppVectors.moon : AppVectors.sun,
                     fit: BoxFit.none,
                   ),
                 ),
@@ -114,7 +116,12 @@ class ChooseMode extends StatelessWidget {
         const SizedBox(
           height: 24,
         ),
-        Text('${mode} Mode'),
+        Text(
+          '$mode Mode',
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ],
     );
   }

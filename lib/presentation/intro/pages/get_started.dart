@@ -21,7 +21,7 @@ class GetStartedPage extends StatelessWidget {
             ),
             decoration: const BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: AssetImage(
                   AppImages.introBG,
                 ),
@@ -42,6 +42,7 @@ class GetStartedPage extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
+                    color: Colors.white70,
                   ),
                 ),
                 const SizedBox(
@@ -66,7 +67,7 @@ class GetStartedPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (BuildContext context) => ChooseMode(),
+                        builder: (BuildContext context) => const ChooseMode(),
                       ),
                     );
                   },
