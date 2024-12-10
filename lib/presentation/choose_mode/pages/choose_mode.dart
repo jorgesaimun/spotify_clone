@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/main.dart';
+import 'package:spotify_clone/presentation/choose_mode/bloc/theme_cubit.dart';
 
 class ChooseMode extends StatelessWidget {
   const ChooseMode({super.key});
@@ -49,66 +52,82 @@ class ChooseMode extends StatelessWidget {
                 ),
                 Center(
                   child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipOval(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color(0xff30393C).withOpacity(0.5),
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                          AppVectors.moon,
-                          fit: BoxFit.none,
+                      Column(
+                        children: [
+                          ClipOval(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<ThemeCubit>()
+                                      .updateTheme(ThemeMode.dark);
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: const Color(0xff30393C)
+                                        .withOpacity(0.5),
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      AppVectors.moon,
+                                      fit: BoxFit.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        ),
-                      ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          const Text("Dark Mode"),
+                        ],
                       ),
                       const SizedBox(
-                      height: 24,
+                        width: 100,
                       ),
-                      const Text("Dark Mode"),
-                    ],
-                    ),
-                    const SizedBox(
-                    width: 100,
-                    ),
-                    Column(
-                    children: [
-                      ClipOval(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color(0xff30393C).withOpacity(0.5),
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                          AppVectors.sun,
-                          fit: BoxFit.none,
+                      Column(
+                        children: [
+                          ClipOval(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<ThemeCubit>()
+                                      .updateTheme(ThemeMode.light);
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: const Color(0xff30393C)
+                                        .withOpacity(0.5),
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      AppVectors.sun,
+                                      fit: BoxFit.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          const Text("Light Mode"),
+                        ],
                       ),
-                      ),
-                      const SizedBox(
-                      height: 24,
-                      ),
-                      const Text("Light Mode"),
                     ],
-                    ),
-                  ],
                   ),
                 ),
                 const SizedBox(
