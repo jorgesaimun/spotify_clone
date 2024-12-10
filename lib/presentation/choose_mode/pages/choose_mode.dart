@@ -1,12 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
-import 'package:spotify_clone/main.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup_or_signin.dart';
 import 'package:spotify_clone/presentation/choose_mode/bloc/theme_cubit.dart';
 
 class ChooseMode extends StatelessWidget {
@@ -54,80 +53,12 @@ class ChooseMode extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          ClipOval(
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<ThemeCubit>()
-                                      .updateTheme(ThemeMode.dark);
-                                },
-                                child: Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: const Color(0xff30393C)
-                                        .withOpacity(0.5),
-                                  ),
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                      AppVectors.moon,
-                                      fit: BoxFit.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          const Text("Dark Mode"),
-                        ],
-                      ),
+                      themeMode(context,'Dark'),
                       const SizedBox(
                         width: 100,
                       ),
-                      Column(
-                        children: [
-                          ClipOval(
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<ThemeCubit>()
-                                      .updateTheme(ThemeMode.light);
-                                },
-                                child: Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: const Color(0xff30393C)
-                                        .withOpacity(0.5),
-                                  ),
-                                  child: Center(
-                                    child: SvgPicture.asset(
-                                      AppVectors.sun,
-                                      fit: BoxFit.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          const Text("Light Mode"),
-                        ],
-                      ),
-                    ],
+                      themeMode(context,'Light'),
+                      ],
                   ),
                 ),
                 const SizedBox(
@@ -135,12 +66,12 @@ class ChooseMode extends StatelessWidget {
                 ),
                 BasicAppButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (BuildContext context) => ChooseMode(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>const SignupOrSignin(),
+                      ),
+                    );
                   },
                   title: 'Continue',
                 ),
@@ -149,6 +80,42 @@ class ChooseMode extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Column themeMode(BuildContext context,String mode) {
+    return Column(
+      children: [
+        ClipOval(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: GestureDetector(
+              onTap: () {
+                context.read<ThemeCubit>().updateTheme(mode == 'Dark' ? ThemeMode.dark : ThemeMode.light);
+              },
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xff30393C).withOpacity(0.5),
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    mode=='dark'?
+                    AppVectors.moon:AppVectors.sun,
+                    fit: BoxFit.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 24,
+        ),
+        Text('${mode} Mode'),
+      ],
     );
   }
 }
