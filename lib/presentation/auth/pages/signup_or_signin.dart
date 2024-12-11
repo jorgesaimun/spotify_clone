@@ -51,7 +51,7 @@ class MainContent extends StatelessWidget {
         children: [
           SvgPicture.asset(AppVectors.logo),
           const SizedBox(
-            height: 50,
+            height: 20,
           ),
           const Text(
             "Enjoy Listening To Music",
@@ -63,14 +63,17 @@ class MainContent extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          const Text(
-            "Discover new artists, albums, and playlists. "
-            "Create your own personalized music library. "
-            "Join the community of music lovers today!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: AppColors.grey,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32),
+            child: Text(
+              "Discover new artists, albums, and playlists."
+              "Create your own personalized music library."
+              "Join the community of music lovers today!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.grey,
+              ),
             ),
           ),
           const SizedBox(
