@@ -8,84 +8,94 @@ import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/presentation/auth/pages/signup_or_signin.dart';
 import 'package:spotify_clone/presentation/choose_mode/bloc/theme_cubit.dart';
 
-class ChooseMode extends StatelessWidget {
+class ChooseMode extends StatefulWidget {
   const ChooseMode({super.key});
 
   @override
+  _ChooseModeState createState() => _ChooseModeState();
+}
+
+class _ChooseModeState extends State<ChooseMode> {
+  String _selectedMode = 'Dark';
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 40,
-              horizontal: 40,
-            ),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(
-                  AppImages.introBG,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 40,
+                horizontal: 40,
+              ),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    AppImages.introBG,
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
-            color: Colors.black.withOpacity(0.15),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              children: [
-                SvgPicture.asset(AppVectors.logo),
-                const Spacer(),
-                const Text(
-                  "Choose Mode",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      themeMode(context, 'Dark'),
-                      const SizedBox(
-                        width: 100,
-                      ),
-                      themeMode(context, 'Light'),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                BasicAppButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            const SignupOrSignin(),
-                      ),
-                    );
-                  },
-                  title: 'Continue',
-                ),
-              ],
+            Container(
+              color: Colors.black.withOpacity(0.15),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  SvgPicture.asset(AppVectors.logo),
+                  const Spacer(),
+                  const Text(
+                    "Choose Mode",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        themeMode(context, 'Dark'),
+                        const SizedBox(
+                          width: 100,
+                        ),
+                        themeMode(context, 'Light'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  BasicAppButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const SignupOrSignin(),
+                        ),
+                      );
+                    },
+                    title: 'Continue',
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Column themeMode(BuildContext context, String mode) {
+    bool isSelected = _selectedMode == mode;
     return Column(
       children: [
         ClipOval(
@@ -93,6 +103,9 @@ class ChooseMode extends StatelessWidget {
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: GestureDetector(
               onTap: () {
+                setState(() {
+                  _selectedMode = mode;
+                });
                 context.read<ThemeCubit>().updateTheme(
                     mode == 'Dark' ? ThemeMode.dark : ThemeMode.light);
               },
@@ -101,7 +114,9 @@ class ChooseMode extends StatelessWidget {
                 height: 80,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xff30393C).withOpacity(0.5),
+                  color: isSelected
+                      ? Colors.blue.withOpacity(0.2)
+                      : const Color(0xff30393C).withOpacity(0.5),
                 ),
                 child: Center(
                   child: SvgPicture.asset(
