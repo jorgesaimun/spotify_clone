@@ -4,6 +4,7 @@ import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/auth/pages/register.dart';
 
 class Signin extends StatelessWidget {
   const Signin({super.key});
@@ -31,55 +32,13 @@ class Signin extends StatelessWidget {
                 'Sign In',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("If You Need Any Support"),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Click Here',
-                      style: TextStyle(color: AppColors.primary),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              SizedBox(
-                height: 70,
-                child: TextField(
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
-                height: 70,
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 8),
+              _textButton(context, 'If You Need Any Support', 'Click Here'),
+              const SizedBox(height: 8),
+              _basicTextField('Email'),
+              const SizedBox(height: 16),
+              _basicTextField('Password'),
+              const SizedBox(height: 16),
               TextButton(
                 onPressed: () {},
                 child: const Text('Forgot Password?'),
@@ -89,10 +48,79 @@ class Signin extends StatelessWidget {
                 title: 'Sign In',
                 borderRadius: 32,
               ),
+              const SizedBox(height: 16),
+              _orAndDivider(),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SvgPicture.asset(AppVectors.googleLogo),
+                  SvgPicture.asset(AppVectors.appleLogo),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              _textButton(context, 'Not A Member ?', 'Register Now'),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Row _orAndDivider() {
+    return const Row(
+      children: [
+        Expanded(
+          child: Divider(
+            thickness: 2,
+            indent: 10,
+            endIndent: 10,
+          ),
+        ),
+        Text('Or'),
+        Expanded(
+          child: Divider(
+            thickness: 2,
+            indent: 10,
+            endIndent: 10,
+          ),
+        )
+      ],
+    );
+  }
+
+  TextField _basicTextField(String title) {
+    return TextField(
+      decoration: InputDecoration(label: Text(title)),
+    );
+  }
+
+  Row _textButton(BuildContext context, String textTitle, String buttonTitle) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(textTitle),
+        TextButton(
+          onPressed: () {
+            if (buttonTitle != 'Click Here') {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const Register(),
+                ),
+              );
+            }
+          },
+          child: Text(
+            buttonTitle,
+            style: const TextStyle(color: AppColors.primary),
+          ),
+        ),
+      ],
     );
   }
 }
