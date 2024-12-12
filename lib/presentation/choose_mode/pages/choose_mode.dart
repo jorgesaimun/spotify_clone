@@ -24,20 +24,7 @@ class _ChooseModeState extends State<ChooseMode> {
       child: Scaffold(
         body: Stack(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 40,
-                horizontal: 40,
-              ),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(
-                    AppImages.introBG,
-                  ),
-                ),
-              ),
-            ),
+            _bgContainer(),
             Container(
               color: Colors.black.withOpacity(0.15),
             ),
@@ -58,37 +45,59 @@ class _ChooseModeState extends State<ChooseMode> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        themeMode(context, 'Dark'),
-                        const SizedBox(
-                          width: 100,
-                        ),
-                        themeMode(context, 'Light'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  BasicAppButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const SignupOrSignin(),
-                        ),
-                      );
-                    },
-                    title: 'Continue',
-                  ),
+                  _themeOption(context),
+                  const SizedBox(height: 24),
+                  _continueButton(context),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Center _themeOption(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          themeMode(context, 'Dark'),
+          const SizedBox(
+            width: 100,
+          ),
+          themeMode(context, 'Light'),
+        ],
+      ),
+    );
+  }
+
+  BasicAppButton _continueButton(BuildContext context) {
+    return BasicAppButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const SignupOrSignin(),
+          ),
+        );
+      },
+      title: 'Continue',
+    );
+  }
+
+  Container _bgContainer() {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 40,
+        horizontal: 40,
+      ),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            AppImages.introBG,
+          ),
         ),
       ),
     );
