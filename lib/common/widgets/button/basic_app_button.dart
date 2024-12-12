@@ -5,12 +5,14 @@ class BasicAppButton extends StatelessWidget {
   final String title;
   final double height;
   final double width;
+  final double borderRadius;
   const BasicAppButton({
     super.key,
     required this.onPressed,
     required this.title,
-    this.height = 60.0,
+    this.height = 70.0,
     this.width = double.infinity,
+    this.borderRadius = 32,
   });
 
   @override
@@ -19,10 +21,12 @@ class BasicAppButton extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
         ),
+        onPressed: onPressed,
         child: Text(
           title,
           style: const TextStyle(color: Colors.white),

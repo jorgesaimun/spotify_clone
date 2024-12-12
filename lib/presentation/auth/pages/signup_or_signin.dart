@@ -79,46 +79,49 @@ class MainContent extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: BasicAppButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const Register(),
-                      ),
-                    );
-                  },
-                  title: 'Register',
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: BasicAppButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => const Register(),
+                        ),
+                      );
+                    },
+                    title: 'Register',
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Expanded(
-                flex: 1,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const Signin(),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => const Signin(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Sign in',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: context.isDarkMode ? Colors.white : Colors.black,
                       ),
-                    );
-                  },
-                  child: Text(
-                    'Sign in',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: context.isDarkMode ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
