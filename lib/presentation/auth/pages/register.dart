@@ -5,6 +5,7 @@ import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/auth/pages/signin.dart';
+import 'package:spotify_clone/presentation/home/pages/home_page.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -34,11 +35,7 @@ class Register extends StatelessWidget {
                 const SizedBox(height: 16),
                 _basicTextField('Password'),
                 const SizedBox(height: 24),
-                BasicAppButton(
-                  onPressed: () {},
-                  title: 'Create Account',
-                  borderRadius: 32,
-                ),
+                _createAccountButton(context),
                 const SizedBox(height: 16),
                 _orAndDivider(),
                 const SizedBox(height: 16),
@@ -56,6 +53,21 @@ class Register extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  BasicAppButton _createAccountButton(BuildContext context) {
+    return BasicAppButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const HomePage(),
+          ),
+        );
+      },
+      title: 'Create Account',
+      borderRadius: 32,
     );
   }
 

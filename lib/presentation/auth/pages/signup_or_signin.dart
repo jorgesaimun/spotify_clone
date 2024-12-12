@@ -50,80 +50,88 @@ class MainContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(AppVectors.logo),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            "Enjoy Listening To Music",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32),
-            child: Text(
-              "Discover new artists, albums, and playlists."
-              "Create your own personalized music library."
-              "Join the community of music lovers today!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-                color: AppColors.grey,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
+          const SizedBox(height: 20),
+          _titleText(),
+          const SizedBox(height: 24),
+          _descriptionText(),
+          const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                Expanded(
-                  child: BasicAppButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const Register(),
-                        ),
-                      );
-                    },
-                    title: 'Register',
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const Signin(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      'Sign in',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: context.isDarkMode ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+                _registerButton(context),
+                const SizedBox(width: 8),
+                _signInButton(context),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Text _titleText() {
+    return const Text(
+      "Enjoy Listening To Music",
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 24,
+      ),
+    );
+  }
+
+  Expanded _registerButton(BuildContext context) {
+    return Expanded(
+      child: BasicAppButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const Register(),
+            ),
+          );
+        },
+        title: 'Register',
+      ),
+    );
+  }
+
+  Expanded _signInButton(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: TextButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const Signin(),
+            ),
+          );
+        },
+        child: Text(
+          'Sign in',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: context.isDarkMode ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding _descriptionText() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 32),
+      child: Text(
+        "Discover new artists, albums, and playlists."
+        "Create your own personalized music library."
+        "Join the community of music lovers today!",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 16,
+          color: AppColors.grey,
+        ),
       ),
     );
   }

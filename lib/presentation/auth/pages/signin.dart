@@ -5,6 +5,7 @@ import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/auth/pages/register.dart';
+import 'package:spotify_clone/presentation/home/pages/home_page.dart';
 
 class Signin extends StatelessWidget {
   const Signin({super.key});
@@ -43,16 +44,10 @@ class Signin extends StatelessWidget {
                 onPressed: () {},
                 child: const Text('Forgot Password?'),
               ),
-              BasicAppButton(
-                onPressed: () {},
-                title: 'Sign In',
-                borderRadius: 32,
-              ),
+              _signInButton(context),
               const SizedBox(height: 16),
               _orAndDivider(),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -60,14 +55,27 @@ class Signin extends StatelessWidget {
                   SvgPicture.asset(AppVectors.appleLogo),
                 ],
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               _textButton(context, 'Not A Member ?', 'Register Now'),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  BasicAppButton _signInButton(BuildContext context) {
+    return BasicAppButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const HomePage(),
+          ),
+        );
+      },
+      title: 'Sign In',
+      borderRadius: 32,
     );
   }
 
