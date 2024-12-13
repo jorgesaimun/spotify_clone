@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spotify_clone/data/models/auth/create_user_req.dart';
 
 abstract class AuthFirebaseService {
@@ -8,13 +9,18 @@ abstract class AuthFirebaseService {
 class AuthFirebaseServiceImpl extends AuthFirebaseService {
   @override
   Future<void> signin() async {
-    // TODO: implement signin
     throw UnimplementedError();
   }
 
   @override
   Future<void> signup(CreateUserReq createUserReq) async {
-    // TODO: implement signup
-    throw UnimplementedError();
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: createUserReq.email,
+        password: createUserReq.password,
+      );
+    } on FirebaseException catch (e) {
+      print(e);
+    }
   }
 }
