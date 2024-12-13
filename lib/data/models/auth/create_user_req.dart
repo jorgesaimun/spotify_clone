@@ -3,6 +3,6 @@ class CreateUserReq {
   final String email;
   final String password;
 
-  CreateUserReq(this.fullName, this.email, this.password);
-
+  CreateUserReq(
+      {required this.fullName, required this.email, required this.password});
 }
