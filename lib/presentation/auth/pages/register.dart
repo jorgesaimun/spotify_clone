@@ -4,12 +4,17 @@ import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/data/models/auth/create_user_req.dart';
+import 'package:spotify_clone/domain/usecases/auth/signup.dart';
 import 'package:spotify_clone/presentation/auth/pages/signin.dart';
 import 'package:spotify_clone/presentation/home/pages/home_page.dart';
+import 'package:spotify_clone/service_locator.dart';
 
 class Register extends StatelessWidget {
-  const Register({super.key});
-
+  Register({super.key});
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +34,11 @@ class Register extends StatelessWidget {
                 _registerText(),
                 _textButton(context, 'If You Need Any Support', 'Click Here'),
                 const SizedBox(height: 8),
-                _basicTextField('Full Name'),
+                _basicTextField('Full Name', _fullNameController),
                 const SizedBox(height: 16),
-                _basicTextField('Enter Email'),
+                _basicTextField('Enter Email', _emailController),
                 const SizedBox(height: 16),
-                _basicTextField('Password'),
+                _basicTextField('Password', _passwordController),
                 const SizedBox(height: 24),
                 _createAccountButton(context),
                 const SizedBox(height: 16),
@@ -58,7 +63,29 @@ class Register extends StatelessWidget {
 
   BasicAppButton _createAccountButton(BuildContext context) {
     return BasicAppButton(
-      onPressed: () {
+      onPressed: () async {
+        var result = await s1<SignupUseCase>().call(
+          params: CreateUserReq(
+            email: _emailController.text.toString(),
+            fullName: _fullNameController.text.toString(),
+            password: _passwordController.text.toString(),
+          ),
+        );
+        result.fold((l) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l.message),
+              backgroundColor: AppColors.primary,
+            ),
+          );
+        }, (r) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account Created Successfully'),
+              backgroundColor: AppColors.primary,
+            ),
+          );
+        });
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -118,8 +145,9 @@ class Register extends StatelessWidget {
     );
   }
 
-  TextField _basicTextField(String title) {
+  TextField _basicTextField(String title, TextEditingController controller) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(label: Text(title)),
     );
   }

@@ -87,7 +87,7 @@ class MainContent extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => const Register(),
+              builder: (BuildContext context) =>  Register(),
             ),
           );
         },
