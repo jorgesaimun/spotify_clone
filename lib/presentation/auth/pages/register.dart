@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
@@ -8,7 +9,6 @@ import 'package:spotify_clone/data/models/auth/create_user_req.dart';
 import 'package:spotify_clone/domain/usecases/auth/signup.dart';
 import 'package:spotify_clone/presentation/auth/pages/signin.dart';
 import 'package:spotify_clone/presentation/home/pages/home_page.dart';
-import 'package:spotify_clone/service_locator.dart';
 
 class Register extends StatelessWidget {
   Register({super.key});
@@ -64,7 +64,7 @@ class Register extends StatelessWidget {
   BasicAppButton _createAccountButton(BuildContext context) {
     return BasicAppButton(
       onPressed: () async {
-        var result = await s1<SignupUseCase>().call(
+        var result = await GetIt.I<SignupUseCase>().call(
           params: CreateUserReq(
             email: _emailController.text.toString(),
             fullName: _fullNameController.text.toString(),
